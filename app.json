@@ -3,8 +3,9 @@
     "name": "rentxTs",
     "slug": "rentxTs",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "splash": {
+      "image": "./assets/splash.png"
+    },
+    "assetBundlePatterns": ["**/*"]
   }
 }

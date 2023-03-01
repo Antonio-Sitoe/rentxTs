@@ -12,7 +12,6 @@
     "@expo-google-fonts/archivo": "^0.2.3",
     "@expo-google-fonts/inter": "^0.2.3",
     "expo": "~48.0.4",
-    "expo-app-loading": "^2.1.1",
     "expo-font": "~11.1.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",

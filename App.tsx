@@ -1,6 +1,5 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 
 import {
@@ -26,7 +25,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
   return (
     <ThemeProvider theme={theme}>
