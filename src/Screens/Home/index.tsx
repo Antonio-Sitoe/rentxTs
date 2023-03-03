@@ -1,6 +1,7 @@
 import React from "react";
 import { StatusBar } from "react-native";
 import { Container, Header, Title } from "./styles";
+import Logo from "../../assets/logo.svg";
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
         backgroundColor="transparent"
         translucent
       />
-      <Header>Edjooo</Header>
+      <Header>
+        <Logo />
+      </Header>
     </Container>
   );
 }
