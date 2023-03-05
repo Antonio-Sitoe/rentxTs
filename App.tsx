@@ -17,6 +17,7 @@ import theme from "./src/styles/theme";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { View } from "react-native";
+import { CarDetails } from "./src/Screens/carDetails/CardDetails";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -72,7 +73,7 @@ export default function App() {
     <View onLayout={onLayoutRootView}>
       <ThemeProvider theme={theme}>
         <StatusBar />
-        <Home />
+        <CarDetails />
       </ThemeProvider>
     </View>
   );
