@@ -2,34 +2,23 @@ import React, { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
 
-import {
-  useFonts,
-  Inter_400Regular,
-  Inter_500Medium,
-} from "@expo-google-fonts/inter";
+import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 import {
   Archivo_400Regular,
   Archivo_500Medium,
   Archivo_600SemiBold,
 } from "@expo-google-fonts/archivo";
-import Home from "./src/Screens/Home";
+
 import theme from "./src/styles/theme";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { View } from "react-native";
-import { CarDetails } from "./src/Screens/carDetails/CardDetails";
+import { Scheduling } from "./src/Screens/Scheduling/Scheduling";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  // const [fontsLoaded] = useFonts({
-  //   Inter_400Regular,
-  //   Inter_500Medium,
-  //   Archivo_400Regular,
-  //   Archivo_500Medium,
-  //   Archivo_600SemiBold,
-  // });
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -73,7 +62,7 @@ export default function App() {
     <View onLayout={onLayoutRootView}>
       <ThemeProvider theme={theme}>
         <StatusBar />
-        <CarDetails />
+        <Scheduling />
       </ThemeProvider>
     </View>
   );
