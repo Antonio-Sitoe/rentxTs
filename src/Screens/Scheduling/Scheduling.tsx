@@ -47,7 +47,7 @@ export function Scheduling() {
       </Header>
       <Content></Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button title="Confirmar" onPress={() => {}} enabled={true} />
       </Footer>
     </Container>
   );
