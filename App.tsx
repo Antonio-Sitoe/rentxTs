@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
+
 import {
   Archivo_400Regular,
   Archivo_500Medium,
@@ -10,11 +10,11 @@ import {
 import theme from "./src/styles/theme";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
-import { View, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components";
-import { SchedulingComplete } from "./src/Screens/SchedulingComplete/SchedulingComplete";
 
-// Keep the splash screen visible while we fetch resources
+import { Routes } from "./src/routes";
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -23,7 +23,6 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync({
           Inter_400Regular,
           Inter_500Medium,
@@ -31,12 +30,9 @@ export default function App() {
           Archivo_500Medium,
           Archivo_600SemiBold,
         });
-        // Artificially delay for two seconds to simulate a slow loading
-        // experience. Please remove this if you copy and paste the code!
       } catch (e) {
         console.warn(e);
       } finally {
-        // Tell the application to render
         setAppIsReady(true);
       }
     }
@@ -45,11 +41,6 @@ export default function App() {
   }, []);
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      // This tells the splash screen to hide immediately! If we call this after
-      // `setAppIsReady`, then we may see a blank screen while the app is
-      // loading its initial state and rendering its first pixels. So instead,
-      // we hide the splash screen once we know the root view has already
-      // performed layout.
       await SplashScreen.hideAsync();
     }
   }, [appIsReady]);
@@ -58,11 +49,9 @@ export default function App() {
     return null;
   }
   return (
-    <View onLayout={onLayoutRootView}>
-      <ThemeProvider theme={theme}>
-        <StatusBar />
-        <SchedulingComplete />
-      </ThemeProvider>
-    </View>
+    <ThemeProvider theme={theme}>
+      <StatusBar />
+      <Routes handleReady={onLayoutRootView} />
+    </ThemeProvider>
   );
 }

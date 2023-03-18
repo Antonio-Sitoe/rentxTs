@@ -28,8 +28,13 @@ import {
 import { Button } from "../../components/Button";
 import { ScrollView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 
 export function CarDetails() {
+  const { navigate } = useNavigation();
+  function handleConfirmRental() {
+    navigate("Scheduling");
+  }
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
@@ -82,7 +87,10 @@ export function CarDetails() {
         </About>
       </ScrollView>
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Escolher periodo do aluguer"
+          onPress={handleConfirmRental}
+        />
       </Footer>
     </Container>
   );

@@ -40,8 +40,13 @@ import { ScrollView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { RFValue } from "react-native-responsive-fontsize";
 import theme from "../../styles/theme";
+import { useNavigation } from "@react-navigation/native";
 
 export function SchedulingDetails() {
+  const { navigate } = useNavigation();
+  function handleConfirmRental() {
+    navigate("SchedulingComplete");
+  }
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
@@ -116,7 +121,11 @@ export function SchedulingDetails() {
         </RentalPrice>
       </ScrollView>
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Alugar agora"
+          color={theme.colors.success}
+          onPress={handleConfirmRental}
+        />
       </Footer>
     </Container>
   );

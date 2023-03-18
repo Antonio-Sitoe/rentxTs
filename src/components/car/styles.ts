@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
-// import { RectButton } from 'react-native-gesture-handler';
+import { RectButton } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import FastImage from "react-native-fast-image";
 
-export const Container = styled.View`
+export const Container = styled(RectButton)`
   width: 100%;
   height: 126px;
 
