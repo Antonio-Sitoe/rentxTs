@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { ThemeProvider } from "styled-components";
 
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 import {
@@ -12,8 +10,9 @@ import {
 import theme from "./src/styles/theme";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
-import { View } from "react-native";
-import { Scheduling } from "./src/Screens/Scheduling/Scheduling";
+import { View, StatusBar } from "react-native";
+import { ThemeProvider } from "styled-components";
+import { SchedulingComplete } from "./src/Screens/SchedulingComplete/SchedulingComplete";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -62,7 +61,7 @@ export default function App() {
     <View onLayout={onLayoutRootView}>
       <ThemeProvider theme={theme}>
         <StatusBar />
-        <Scheduling />
+        <SchedulingComplete />
       </ThemeProvider>
     </View>
   );
