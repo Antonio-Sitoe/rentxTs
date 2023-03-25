@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { api } from "../../services/api";
 import { Car } from "../../components/car/Car";
-import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar, TouchableOpacity, Text } from "react-native";
 import { CarList, Container, Header, HeaderContent, TotalCars } from "./styles";
 import Logo from "../../assets/logo.svg";
-import { useNavigation } from "@react-navigation/native";
+import { Load } from "../../components/Loading";
+import { CarDTO } from "../../dtos/CarDTO";
 
 export function Home() {
+  const [cars, setCars] = useState<Array<CarDTO | []>>([]);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  function handleGotoCarDetail() {
-    navigation.navigate("CarDetails");
+  function handleGotoCarDetail(car: CarDTO) {
+    navigation.navigate("CarDetails" as never, { car } as never);
   }
-  const carData = {
-    brand: "Audi",
-    name: "A5",
-    rent: {
-      period: "Ao dia",
-      price: "50000",
-    },
-    thumbnail: "https://freepngimg.com/thumb/car/3-2-car-free-download-png.png",
-  };
+
+  async function fetchCars() {
+    try {
+      setLoading(true);
+      const { data } = await api.get("/cars");
+      setCars(data);
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    fetchCars();
+  }, []);
 
   return (
     <Container>
@@ -30,18 +41,25 @@ export function Home() {
         translucent
       />
       <Header>
+        <TouchableOpacity onPress={() => fetchCars()}>
+          <Text>Hello</Text>
+        </TouchableOpacity>
         <HeaderContent>
           <Logo height={RFValue(12)} width={RFValue(108)} />
           <TotalCars>Total de 12 Carros</TotalCars>
         </HeaderContent>
       </Header>
-      <CarList
-        data={[1, 2, 3, 4, 5, 6, 8]}
-        keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => (
-          <Car data={carData} onPress={handleGotoCarDetail} />
-        )}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <CarList
+          data={cars}
+          keyExtractor={(item: CarDTO) => String(item.id)}
+          renderItem={({ item }) => (
+            <Car data={item} onPress={() => handleGotoCarDetail(item)} />
+          )}
+        />
+      )}
     </Container>
   );
 }

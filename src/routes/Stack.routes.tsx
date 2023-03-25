@@ -3,9 +3,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 const { Navigator, Screen } = createStackNavigator();
 
 import { Home } from "../Screens/Home";
-import { Scheduling } from "../Screens/Scheduling/Scheduling";
+import { Scheduling } from "../Screens/Scheduling";
 import { CarDetails } from "../Screens/carDetails/CardDetails";
-import { SchedulingDetails } from "../Screens/SchedulingDetails/SchedulingDetails";
+import { SchedulingDetails } from "../Screens/SchedulingDetails";
 import { SchedulingComplete } from "../Screens/SchedulingComplete/SchedulingComplete";
 
 export function StackRoutes() {

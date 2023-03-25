@@ -3,13 +3,6 @@ import { Acessory } from "../../components/Acessory";
 import { BackButton } from "../../components/BackButton/BackButton";
 import { ImageSlider } from "../../components/ImageSlider/ImageSlider";
 
-import SpeedSvg from "../../assets/speed.svg";
-import AccSvg from "../../assets/acceleration.svg";
-import ForceSvg from "../../assets/force.svg";
-import GasolineSvg from "../../assets/gasoline.svg";
-import ExchangeSvg from "../../assets/exchange.svg";
-import PeopleSvg from "../../assets/people.svg";
-
 import {
   Container,
   Header,
@@ -28,26 +21,37 @@ import {
 import { Button } from "../../components/Button";
 import { ScrollView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { CarDTO } from "../../dtos/CarDTO";
+import { getAcessoryIcon } from "../../utils/getAcessoryIcon";
+
+interface Params {
+  car: CarDTO;
+}
 
 export function CarDetails() {
-  const { navigate } = useNavigation();
+  const { navigate, goBack } = useNavigation();
+  const { params } = useRoute();
+  const { car } = params as Params;
   function handleConfirmRental() {
-    navigate("Scheduling");
+    navigate("Scheduling" as never, { car } as never);
+  }
+
+  function goback() {
+    goBack();
+  }
+  function scrollHandler() {
+    // goBack();
   }
   return (
     <Container>
       <StatusBar translucent backgroundColor="transparent" />
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={goback} />
       </Header>
 
       <CarImages>
-        <ImageSlider
-          imageUrl={[
-            "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          ]}
-        />
+        <ImageSlider imageUrl={[...car.photos]} />
       </CarImages>
 
       <ScrollView
@@ -56,35 +60,33 @@ export function CarDetails() {
           // paddingTop: getStatusBarHeight() + 160,
         }}
         showsVerticalScrollIndicator={false}
-        // onScroll={scrollHandler}
+        onScroll={scrollHandler}
         scrollEventThrottle={16}
       >
         <Details>
           <Description>
-            <Brand>Lamborguine</Brand>
-            <Name>HuranCam</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>Ao dia</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>{car.rent.price} MT</Price>
           </Rent>
         </Details>
 
         <Accessories>
-          <Acessory icon={SpeedSvg} name="380km/h" />
-          <Acessory icon={AccSvg} name="3.2s" />
-          <Acessory icon={ForceSvg} name="Auto" />
-          <Acessory icon={GasolineSvg} name="Hello" />
-          <Acessory icon={ExchangeSvg} name="Aceleration" />
-          <Acessory icon={PeopleSvg} name="Pessoas" />
+          {car.accessories.map((accessory) => {
+            return (
+              <Acessory
+                icon={getAcessoryIcon(accessory.type)}
+                key={accessory.type}
+                name={accessory.name}
+              />
+            );
+          })}
         </Accessories>
 
-        <About>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae veniam
-          sit ex neque. Dolore ipsam quisquam corporis maxime debitis asperiores
-          ex voluptate pariatur eveniet architecto cumque, nostrum consequatur?
-          Odio, obcaecati.
-        </About>
+        <About>{car.about}</About>
       </ScrollView>
       <Footer>
         <Button
