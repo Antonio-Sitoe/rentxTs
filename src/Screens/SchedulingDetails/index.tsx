@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { format } from "date-fns";
 import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
@@ -63,14 +62,24 @@ export function SchedulingDetails() {
 
   async function handleConfirmRental() {
     setLoading(true);
+
+    await api.post(`/schedules_byuser`, {
+      user_id: 1,
+      car,
+    });
+    await api.put(`/schedules_bycars/${car.id}`, {
+      id: car.id,
+      unavailable_dates: ["2023-06-01", "2023-06-02", "2023-06-09"],
+    });
     navigation.navigate(
-      "Confirmation" as never,
+      "SchedulingComplete" as never,
       {
         nextScreenRoute: "Home",
         title: "Carro alugado!",
         message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel.`,
       } as never
     );
+    setLoading(false);
 
     // await api
     //   .post("/rentals", {
