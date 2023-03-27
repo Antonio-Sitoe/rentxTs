@@ -12,7 +12,7 @@ import { Acessory as Accessory } from "../../components/Acessory";
 import { Button } from "../../components/Button";
 
 import { CarDTO } from "../../dtos/CarDTO";
-import { getAcessoryIcon as getAccessoryIcon } from "../../utils/getAcessoryIcon";
+import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 import { getPlatformDate } from "../../utils/getPlatformDate";
 import { api } from "../../services/api";
 
@@ -59,7 +59,7 @@ export function SchedulingDetails() {
   const navigation = useNavigation();
   const route = useRoute();
   const { car } = route.params as Params;
-  const rentTotal = car.rent.price * Math.floor(Math.random() * 160);
+  const rentTotal = car?.rent?.price * Math.floor(Math.random() * 160);
 
   async function handleConfirmRental() {
     setLoading(true);

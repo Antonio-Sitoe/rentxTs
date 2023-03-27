@@ -23,7 +23,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { CarDTO } from "../../dtos/CarDTO";
-import { getAcessoryIcon } from "../../utils/getAcessoryIcon";
+import { getAccessoryIcon as getAcessoryIcon } from "../../utils/getAccessoryIcon";
 
 interface Params {
   car: CarDTO;
