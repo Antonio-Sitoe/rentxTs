@@ -59,7 +59,7 @@ export function Home() {
         </TouchableOpacity>
         <HeaderContent>
           <Logo height={RFValue(12)} width={RFValue(108)} />
-          <TotalCars>Total de 12 Carros</TotalCars>
+          <TotalCars>Total de {cars?.length} Carros</TotalCars>
         </HeaderContent>
       </Header>
       {loading ? (
