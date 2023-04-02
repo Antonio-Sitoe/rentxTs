@@ -22,7 +22,7 @@ import { BackButton } from "../../components/BackButton/BackButton";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components";
 import { Car } from "../../components/car/Car";
-import { Load } from "../../components/Loading";
+import LoadAnimation from "../../components/Loading/LoadAnimation";
 
 interface CarProps {
   id: string;
@@ -75,7 +75,7 @@ export function MyCars() {
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <Content>
           <Appointments>
