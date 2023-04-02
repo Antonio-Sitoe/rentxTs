@@ -1,8 +1,11 @@
 import React from "react";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { StackRoutes } from "./Stack.routes";
-export function Routes({ handleReady }) {
+
+interface IStackRoutes {
+  handleReady: () => Promise<void>;
+}
+export function Routes({ handleReady }: IStackRoutes) {
   return (
     <NavigationContainer onReady={handleReady}>
       <StackRoutes />
