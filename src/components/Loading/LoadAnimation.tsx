@@ -8,7 +8,6 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
-
 function LoadAnimation() {
   return (
     <Container>

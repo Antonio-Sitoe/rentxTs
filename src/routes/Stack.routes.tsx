@@ -9,11 +9,12 @@ import { SchedulingDetails } from "../Screens/SchedulingDetails";
 import { SchedulingComplete } from "../Screens/SchedulingComplete/SchedulingComplete";
 import { MyCars } from "../Screens/MyCars";
 import { Splash } from "../Screens/Splash";
+import { SignIn } from "../Screens/SignIn";
 
 export function StackRoutes() {
   return (
-    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
-      <Screen name="Splash" component={Splash} />
+    <Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
+      <Screen name="SignIn" component={SignIn} />
       <Screen name="Home" component={Home} />
       <Screen name="Scheduling" component={Scheduling} />
       <Screen name="CarDetails" component={CarDetails} />
