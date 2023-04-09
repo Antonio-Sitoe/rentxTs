@@ -11,6 +11,7 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { PasswordInput } from "../../components/PasswordInput";
 import * as Yup from "yup";
+import { useNavigation } from "@react-navigation/native";
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -20,6 +21,7 @@ const schema = Yup.object().shape({
 });
 
 export function SignIn() {
+  const navigate = useNavigation();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -84,7 +86,9 @@ export function SignIn() {
               title="Criar conta gratuita"
               color={"#252525"}
               light={false}
-              onPress={() => {}}
+              onPress={() => {
+                navigate.navigate("SignUpFirstStep" as never);
+              }}
               enabled={true}
               loading={false}
             />

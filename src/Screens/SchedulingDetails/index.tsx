@@ -72,13 +72,16 @@ export function SchedulingDetails() {
       unavailable_dates: ["2023-06-01", "2023-06-02", "2023-06-09"],
     });
     navigation.navigate(
-      "SchedulingComplete" as never,
+      "Confirmation" as never,
       {
-        nextScreenRoute: "Home",
-        title: "Carro alugado!",
-        message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel.`,
+        data: {
+          nextScreenRoute: "Home",
+          title: "Carro alugado!",
+          message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel.`,
+        },
       } as never
     );
+
     setLoading(false);
 
     // await api
