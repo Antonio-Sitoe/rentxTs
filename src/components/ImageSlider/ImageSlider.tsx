@@ -9,7 +9,11 @@ import {
 } from "./style";
 
 interface ImageSliderProps {
-  imageUrl: string[];
+  imageUrl: {
+    car_id: string;
+    id: string;
+    photo: string;
+  }[];
 }
 
 interface ChangeSliderProps {
@@ -35,12 +39,12 @@ export function ImageSlider({ imageUrl }: ImageSliderProps) {
         data={imageUrl}
         horizontal
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(key) => key}
+        keyExtractor={({ id }) => id}
         onViewableItemsChanged={indexChanged.current}
         renderItem={({ item }) => {
           return (
             <CarImageWrapper>
-              <CarImage source={{ uri: item }} resizeMode="contain" />
+              <CarImage source={{ uri: item.photo }} resizeMode="contain" />
             </CarImageWrapper>
           );
         }}
