@@ -15,7 +15,6 @@ import { useAuth } from "../../hooks/auth-fl";
 import { useTheme } from "styled-components";
 import { Feather } from "@expo/vector-icons";
 
-import { BackButton } from "../../components/BackButton";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { PasswordInput } from "../../components/PasswordInput";
@@ -35,6 +34,7 @@ import {
   OptionTitle,
   Section,
 } from "./styles";
+import { BackButton } from "../../components/BackButton/BackButton";
 
 export function Profile() {
   const { user, signOut, updatedUser } = useAuth();
@@ -49,81 +49,15 @@ export function Profile() {
   const theme = useTheme();
   const navigation = useNavigation();
 
-  function handleBack() {
-    navigation.goBack();
-  }
+  function handleBack() {}
 
-  function handleOptionChange(optionSelected: "dataEdit" | "passwordEdit") {
-    if (netInfo.isConnected === false && optionSelected === "passwordEdit") {
-      Alert.alert("Para mudar a senha, conecte-se a Internet");
-    } else {
-      setOption(optionSelected);
-    }
-  }
+  function handleOptionChange(optionSelected: "dataEdit" | "passwordEdit") {}
 
-  async function handleAvatarSelect() {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 4],
-      quality: 1,
-    });
+  async function handleAvatarSelect() {}
 
-    if (result.cancelled) {
-      return;
-    }
+  async function handleProfileUpdate() {}
 
-    if (result.uri) {
-      setAvatar(result.uri);
-    }
-  }
-
-  async function handleProfileUpdate() {
-    try {
-      const schema = Yup.object().shape({
-        driverLicense: Yup.string().required("CNH é obrigatória"),
-        name: Yup.string().required("Nome é obrigatório"),
-      });
-
-      const data = { name, driverLicense };
-      await schema.validate(data);
-
-      await updatedUser({
-        id: user.id,
-        user_id: user.user_id,
-        email: user.email,
-        name,
-        driver_license: driverLicense,
-        avatar,
-        token: user.token,
-      });
-
-      Alert.alert("Perfil atualizado!");
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        Alert.alert("Opa", error.message);
-      } else {
-        Alert.alert("Não foi possível atualizar o perfil");
-      }
-    }
-  }
-
-  async function handleSignOut() {
-    Alert.alert(
-      "Tem certeza?",
-      "Se você sair, irá precisar de internet para conectar-se novamente.",
-      [
-        {
-          text: "Cancelar",
-          onPress: () => {},
-        },
-        {
-          text: "Sair",
-          onPress: () => signOut(),
-        },
-      ]
-    );
-  }
+  async function handleSignOut() {}
 
   return (
     <KeyboardAvoidingView behavior="position" enabled>
