@@ -2,14 +2,12 @@ import { ReactNode } from "react";
 import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+import { MyCars } from "../Screens/MyCars";
 
 import { AppStackRoutes } from "./app.stack.routes";
-
-import HomeSvg from "../assets/home.svg";
-import CarSvg from "../assets/car.svg";
 import PeopleSvg from "../assets/people.svg";
 // import { Profile } from "../Screens/Profile/helper";
-import { MyCars } from "../Screens/MyCars";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -25,7 +23,7 @@ export function AppTabRoutes() {
         tabBarInactiveTintColor: theme.colors.text_detail,
         tabBarStyle: {
           paddingVertical: Platform.OS === "ios" ? 20 : 0,
-          height: 78,
+          height: 70,
           backgroundColor: theme.colors.background_primary,
         },
       }}
@@ -35,7 +33,7 @@ export function AppTabRoutes() {
         component={AppStackRoutes}
         options={{
           tabBarIcon: ({ color }) =>
-            (<HomeSvg width={24} height={24} color={color} />) as ReactNode,
+            (<Feather name="home" size={24} color={color} />) as ReactNode,
         }}
       />
 
@@ -44,7 +42,7 @@ export function AppTabRoutes() {
         component={MyCars}
         options={{
           tabBarIcon: ({ color }) =>
-            (<CarSvg width={24} height={24} color={color} />) as ReactNode,
+            (<Feather name="aperture" size={24} color={color} />) as ReactNode,
         }}
       />
 
