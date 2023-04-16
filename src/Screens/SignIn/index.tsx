@@ -23,12 +23,15 @@ const schema = Yup.object().shape({
 
 export function SignIn() {
   const navigate = useNavigation();
+
+  const [isLoading, setisLoading] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { signIn } = useAuth();
 
   async function handleSignIn() {
     try {
+      setisLoading(true);
       await schema.validate({ email, password });
       await signIn({ email, password });
     } catch (error) {
@@ -40,6 +43,8 @@ export function SignIn() {
           "Ocorreu um erro ao fazer login, verifique as credenciais"
         );
       }
+    } finally {
+      setisLoading(false);
     }
   }
 
@@ -80,7 +85,7 @@ export function SignIn() {
             <Button
               title="Login"
               enabled
-              loading={false}
+              loading={isLoading}
               onPress={handleSignIn}
             />
             <Button
