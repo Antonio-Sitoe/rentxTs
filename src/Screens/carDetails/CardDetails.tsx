@@ -105,13 +105,13 @@ export function CarDetails() {
             <Name>{car.name}</Name>
           </Description>
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Price>{car.rent.price} MT</Price>
+            <Period>{car.period}</Period>
+            <Price>{car.price} MT</Price>
           </Rent>
         </Details>
 
         <Accessories>
-          {car.accessories.map((accessory) => {
+          {car?.accessories.map((accessory) => {
             return (
               <Acessory
                 icon={getAcessoryIcon(accessory.type)}
@@ -122,13 +122,7 @@ export function CarDetails() {
           })}
         </Accessories>
 
-        <About>
-          {car.about}
-          {car.about}
-          {car.about}
-          {car.about}
-          {car.about}
-        </About>
+        <About>{car?.about}</About>
       </Animated.ScrollView>
       <Footer>
         <Button

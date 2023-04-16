@@ -14,6 +14,7 @@ import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components";
 
 import { Routes } from "./src/routes";
+import { AppProvider } from "./src/hooks";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,7 +52,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar />
-      <Routes handleReady={onLayoutRootView} />
+      <AppProvider>
+        <Routes handleReady={onLayoutRootView} />
+      </AppProvider>
     </ThemeProvider>
   );
 }

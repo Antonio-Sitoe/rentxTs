@@ -16,7 +16,7 @@ import { Alert, Keyboard, KeyboardAvoidingView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { PasswordInput } from "../../../components/PasswordInput";
 import { useTheme } from "styled-components";
-import { Confirmation } from "../../confirmation/Confirmation";
+import { api } from "../../../services/api";
 
 interface Params {
   user: { name: string; email: string; driverLicence: string };
@@ -25,8 +25,8 @@ interface Params {
 export function SignUpSecondStep() {
   const route = useRoute();
   const theme = useTheme();
-  const [passoword, setPassword] = useState("");
-  const [confirmpassoword, setconfirmpassoword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setconfirmpassword] = useState("");
   const { goBack, navigate } = useNavigation();
   const { user } = route.params as Params;
   console.log(user);
@@ -37,10 +37,20 @@ export function SignUpSecondStep() {
 
   async function handleRegister() {
     try {
-      if (!passoword || !confirmpassoword)
+      if (!password || !confirmpassword)
         return Alert.alert("Informe a senha e confirmacao");
-      if (passoword != confirmpassoword)
+      if (password != confirmpassword)
         return Alert.alert("As senhas nao sao iguais");
+
+      await api.post("/users", {
+        name: user.name,
+        email: user.email,
+        password: password,
+        driver_license: user.driverLicence,
+        avatar:
+          "https://avatars.githubusercontent.com/u/72309855?s=400&u=bd5741c5b0a65f383c40f517e2f3d44f15696fb7&v=4",
+      });
+
       navigate(
         "Confirmation" as never,
         {
@@ -52,7 +62,8 @@ export function SignUpSecondStep() {
         } as never
       );
     } catch (error) {
-    } finally {
+      console.log(error);
+      Alert.alert("Opa", "Nao foi possivel cadastrar");
     }
   }
   return (
@@ -73,13 +84,13 @@ export function SignUpSecondStep() {
             <FormTitle>2. Senha</FormTitle>
             <PasswordInput
               iconName="lock"
-              value={passoword}
+              value={password}
               onChangeText={setPassword}
               placeholder="Senha"
             />
             <PasswordInput
-              value={confirmpassoword}
-              onChangeText={setconfirmpassoword}
+              value={confirmpassword}
+              onChangeText={setconfirmpassword}
               iconName="lock"
               placeholder="Senha"
             />
