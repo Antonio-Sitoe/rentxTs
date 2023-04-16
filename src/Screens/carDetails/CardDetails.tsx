@@ -85,9 +85,9 @@ export function CarDetails() {
           <BackButton onPress={goback} />
         </Header>
 
-        <Animated.View style={[sliderCarsAnimation]}>
+        {/* <Animated.View style={[sliderCarsAnimation]}>
           <ImageSlider imageUrl={car.photos} />
-        </Animated.View>
+        </Animated.View> */}
       </Animated.View>
 
       <Animated.ScrollView
