@@ -7,8 +7,29 @@
       "image": "./assets/splash.png",
       "backgroundColor": "#1B1B1F"
     },
-    "assetBundlePatterns": ["**/*"],
-    "plugins": ["expo-build-properties"]
-  },
-  "plugins": ["@nozbe/watermelondb"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/splash.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.wmlDB.app"
+    },
+    "plugins": [
+      "@morrowdigital/watermelondb-expo-plugin",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.6.10"
+          }
+        }
+      ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.wmlDB.app"
+    }
+  }
 }

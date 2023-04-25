@@ -70,7 +70,11 @@ export function Home() {
     }
   }
   useEffect(() => {
-    fetchCars();
+    let isTrue = true;
+    if (isTrue) fetchCars();
+    return () => {
+      isTrue = false;
+    };
   }, []);
 
   return (
@@ -81,11 +85,10 @@ export function Home() {
         translucent
       />
       <Header>
-        <TouchableOpacity onPress={() => fetchCars()}>
-          <Text>Hello</Text>
-        </TouchableOpacity>
         <HeaderContent>
-          <Logo height={RFValue(12)} width={RFValue(108)} />
+          <TouchableOpacity onPress={() => fetchCars()}>
+            <Logo height={RFValue(12)} width={RFValue(108)} />
+          </TouchableOpacity>
           {!loading && <TotalCars>Total de {cars?.length} Carros</TotalCars>}
         </HeaderContent>
       </Header>

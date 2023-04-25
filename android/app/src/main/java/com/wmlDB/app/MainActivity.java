@@ -1,4 +1,4 @@
-package com.rentxts;
+package com.wmlDB.app;
 
 import android.os.Build;
 import android.os.Bundle;

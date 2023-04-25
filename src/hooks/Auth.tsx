@@ -1,5 +1,13 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { api } from "../services/api";
+import { database } from "../database";
+import { User as ModelUser } from "../database/model/User";
 
 interface User {
   id: string;
@@ -43,25 +51,50 @@ function AuthProvider({ children }: AuthProviderProps) {
       setData({ ...user, token });
 
       api.defaults.headers.authorization = "Bearer " + token;
+
+      const UserColletion = database.get<ModelUser>("users");
+      await database.write(async () => {
+        await UserColletion.create((newUser) => {
+          newUser.user_id = user.id;
+          newUser.name = user.name;
+          newUser.email = user.email;
+          newUser.driver_license = user.driver_license;
+          newUser.token = token;
+        });
+      });
       console.log("Dados do user", data);
     } catch (error) {
-      // throw new Error(error);
+      throw new Error(error);
     }
   }
   async function signOut() {
     try {
-      // setData({} as User);
+      setData({} as User);
     } catch (error) {
-      // throw new Error(error);
+      throw new Error(error);
     }
   }
   async function updatedUser() {
     try {
-      // setData({} as User);
+      setData({} as User);
     } catch (error) {
-      // throw new Error(error);
+      throw new Error(error);
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      const UserColletion = database.get<ModelUser>("users");
+      const user = await UserColletion.query().fetch();
+      console.log("user loged");
+      console.log(user);
+      if (user.length > 0) {
+        const userData = user[0]._raw as unknown as User;
+        api.defaults.headers.authorization = "Bearer " + userData.token;
+        setData(userData);
+      }
+    })();
+  }, []);
 
   return (
     <AuthContext.Provider
