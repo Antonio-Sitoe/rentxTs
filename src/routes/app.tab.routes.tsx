@@ -7,8 +7,7 @@ import { MyCars } from "../Screens/MyCars";
 
 import { AppStackRoutes } from "./app.stack.routes";
 import PeopleSvg from "../assets/people.svg";
-// import { Profile } from "../Screens/Profile";
-// import { Profile } from "../Screens/Profile/helper";
+import { Profile } from "../Screens/Profile";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -49,7 +48,7 @@ export function AppTabRoutes() {
 
       <Screen
         name="Profile"
-        component={MyCars}
+        component={Profile}
         options={{
           tabBarIcon: ({ color }) =>
             (<PeopleSvg width={24} height={24} color={color} />) as ReactNode,
