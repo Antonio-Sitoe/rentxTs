@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components/native';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { RFValue } from 'react-native-responsive-fontsize';
+import styled, { css } from "styled-components/native";
+import { RectButton } from "react-native-gesture-handler";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { RFValue } from "react-native-responsive-fontsize";
 
 interface OptionProps {
   active: boolean;
@@ -36,7 +36,7 @@ export const HeaderTitle = styled.Text`
   color: ${({ theme }) => theme.colors.background_secondary};
 `;
 
-export const LogoutButton = styled(BorderlessButton)``;
+export const LogoutButton = styled.TouchableOpacity``;
 
 export const PhotoContainer = styled.View`
   width: 180px;
@@ -53,7 +53,7 @@ export const Photo = styled.Image`
   border-radius: 90px;
 `;
 
-export const PhotoButton = styled(RectButton)`
+export const PhotoButton = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
 
@@ -85,19 +85,20 @@ export const Options = styled.View`
 export const Option = styled.TouchableOpacity<OptionProps>`
   padding-bottom: 14px;
 
-  ${({ active }) => active && css`
-    border-bottom-width: 3px;
-    border-bottom-color: ${({ theme }) => theme.colors.main};    
-  `}
+  ${({ active }) =>
+    active &&
+    css`
+      border-bottom-width: 3px;
+      border-bottom-color: ${({ theme }) => theme.colors.main};
+    `}
 `;
 
-export const OptionTitle = styled.Text<OptionProps> `
+export const OptionTitle = styled.Text<OptionProps>`
   font-size: ${RFValue(20)}px;
   font-family: ${({ theme, active }) =>
-  active ? theme.fonts.secondary_600 : theme.fonts.secondary_500};
-  color: ${({ theme, active }) => 
-  active ? theme.colors.header : theme.colors.text_detail};
+    active ? theme.fonts.secondary_600 : theme.fonts.secondary_500};
+  color: ${({ theme, active }) =>
+    active ? theme.colors.header : theme.colors.text_detail};
 `;
-
 
 export const Section = styled.View``;

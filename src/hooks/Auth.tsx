@@ -69,6 +69,12 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
   async function signOut() {
     try {
+      const userCollection = database.get<ModelUser>("users");
+      await database.write(async () => {
+        const userSelected = await userCollection.find(data.id);
+        await userSelected.destroyPermanently();
+      });
+
       setData({} as User);
     } catch (error) {
       throw new Error(error);
