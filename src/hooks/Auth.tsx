@@ -64,27 +64,36 @@ function AuthProvider({ children }: AuthProviderProps) {
       });
       console.log("Dados do user", data);
     } catch (error) {
-      throw new Error(error);
+      console.log(error);
     }
   }
   async function signOut() {
     try {
       const userCollection = database.get<ModelUser>("users");
-      await database.action(async () => {
+      await database.write(async () => {
         const userSelected = await userCollection.find(data.id);
         await userSelected.destroyPermanently();
       });
 
       setData({} as User);
     } catch (error) {
-      throw new Error(error);
+      console.log(error);
     }
   }
-  async function updatedUser() {
+  async function updatedUser(user: User) {
     try {
-      setData({} as User);
+      const UserColletion = database.get<ModelUser>("users");
+      database.write(async () => {
+        const userSelected = await UserColletion.find(user.id);
+        await userSelected.update((userData) => {
+          userData.name = user.name;
+          userData.driver_license = user.driver_license;
+          userData.avatar = user.avatar;
+        });
+      });
+      setData(user as User);
     } catch (error) {
-      throw new Error(error);
+      console.log(error);
     }
   }
 

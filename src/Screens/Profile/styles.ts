@@ -13,7 +13,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: 227px;
+  height: 190px;
 
   background-color: ${({ theme }) => theme.colors.header};
 
@@ -44,7 +44,7 @@ export const PhotoContainer = styled.View`
   border-radius: 90px;
 
   background-color: ${({ theme }) => theme.colors.shape};
-  margin-top: 48px;
+  margin-top: 20px;
 `;
 
 export const Photo = styled.Image`

@@ -20,19 +20,27 @@ import { useTheme } from "styled-components";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Input } from "../../components/Input";
-import { Keyboard, KeyboardAvoidingView } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { PasswordInput } from "../../components/PasswordInput";
 import { useAuth } from "../../hooks/Auth";
+import { Button } from "../../components/Button";
+
+import * as Yup from "yup";
+
+const Schema = Yup.object().shape({
+  driver_license: Yup.number().required("CNH e obrigatorio"),
+  name: Yup.string().required("Nome e obrigatorio"),
+});
 
 export function Profile() {
   const theme = useTheme();
-  const { user, signOut } = useAuth();
+  const { user, signOut, updatedUser } = useAuth();
   const { goBack } = useNavigation();
   const [avatar, setAvatar] = useState(user.avatar);
   const [name, setName] = useState(user.name);
-  const [drive_licence, setdrive_licence] = useState(user.driver_license);
+  const [driver_license, setdrive_licence] = useState(user.driver_license);
   const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
 
   async function handleSelectAvatar() {
@@ -50,6 +58,46 @@ export function Profile() {
   function handleBack() {
     goBack();
   }
+  async function handleUpdateUser() {
+    try {
+      const body = { name, driver_license };
+      await Schema.validate(body);
+      updatedUser({
+        avatar: avatar,
+        driver_license: driver_license,
+        name: name,
+        id: user.id,
+        email: user.email,
+        token: user.token,
+        user_id: user.user_id,
+      });
+      Alert.alert("Perfil atualizado");
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert(error.message);
+      } else {
+        Alert.alert("Erro ao atualizar o perfil");
+      }
+    }
+  }
+
+  function handleSignOut() {
+    Alert.alert(
+      "Tem Certeza ?",
+      "Se voce sair ira precisar de internet para conectar novamente.",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Sair",
+          onPress: () => signOut(),
+        },
+      ]
+    );
+  }
 
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -59,7 +107,7 @@ export function Profile() {
             <HeaderTop>
               <BackButton color={theme.colors.shape} onPress={handleBack} />
               <HeaderTitle>Editar Perfil</HeaderTitle>
-              <LogoutButton onPress={signOut}>
+              <LogoutButton onPress={handleSignOut}>
                 <Feather name="power" size={24} color={theme.colors.shape} />
               </LogoutButton>
             </HeaderTop>
@@ -113,7 +161,7 @@ export function Profile() {
                   placeholder="CNH"
                   autoCorrect={false}
                   keyboardType="numeric"
-                  value={drive_licence}
+                  value={driver_license}
                   onChangeText={setdrive_licence}
                   defaultValue={user.driver_license}
                 />
@@ -137,6 +185,7 @@ export function Profile() {
                 />
               </Section>
             )}
+            <Button title="Salvar alteracoes" onPress={handleUpdateUser} />
           </Content>
         </Container>
       </TouchableWithoutFeedback>
