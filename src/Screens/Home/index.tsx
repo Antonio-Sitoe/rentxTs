@@ -3,10 +3,17 @@ import { api } from "../../services/api";
 import { Car } from "../../components/car/Car";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
-import { StatusBar, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  StatusBar,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { CarList, Container, Header, HeaderContent, TotalCars } from "./styles";
 import Logo from "../../assets/logo.svg";
 import { CarDTO } from "../../dtos/CarDTO";
+import { useNetInfo } from "@react-native-community/netinfo";
 // import { Ionicons } from "@expo/vector-icons";
 // import { useTheme } from "styled-components";
 // import Animated, {
@@ -25,6 +32,7 @@ export function Home() {
   const [cars, setCars] = useState<Array<CarDTO | []>>([]);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const netInfo = useNetInfo();
   // const positionY = useSharedValue(0);
   // const positionX = useSharedValue(0);
   // const myCarButtonStyle = useAnimatedStyle(() => {
@@ -76,6 +84,13 @@ export function Home() {
       isTrue = false;
     };
   }, []);
+  useEffect(() => {
+    if (netInfo.isConnected) {
+      Alert.alert("Voce esta online");
+    } else {
+      Alert.alert("Voce esta ofline");
+    }
+  }, [netInfo.isConnected]);
 
   return (
     <Container>
