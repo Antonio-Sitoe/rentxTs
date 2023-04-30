@@ -12,7 +12,6 @@ import { Button } from "../../components/Button";
 
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
-import { getPlatformDate } from "../../utils/getPlatformDate";
 import { api } from "../../services/api";
 
 import {
@@ -58,7 +57,7 @@ export function SchedulingDetails() {
   const navigation = useNavigation();
   const route = useRoute();
   const { car } = route.params as Params;
-  const rentTotal = car?.rent?.price * Math.floor(Math.random() * 160);
+  const rentTotal = car?.price * Math.floor(Math.random() * 160);
 
   async function handleConfirmRental() {
     setLoading(true);
