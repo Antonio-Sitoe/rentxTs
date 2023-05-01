@@ -40,7 +40,6 @@ export function CarDetails() {
   const { navigate, goBack } = useNavigation();
   const { params } = useRoute();
   const { car } = params as Params;
-  console.log(car?.photos);
   const theme = useTheme();
   const ScroolY = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((event) => {
